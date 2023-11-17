@@ -8,7 +8,8 @@ export class GameController {
 
   @Post()
   createGame(@Body() gameData: CreateGameDto): Promise<string> {
-    return this.gameService.createGame(gameData);
+    const createdGame = this.gameService.createGame(gameData);
+    return createdGame;
   }
 
   @Get()
