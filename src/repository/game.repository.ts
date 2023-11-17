@@ -1,29 +1,34 @@
+import { Injectable } from "@nestjs/common";
 import { PrismaClient } from "@prisma/client";
 import { CreateGameDto } from "src/dto/createGame";
 
-const prisma = new PrismaClient();
+@Injectable()
+export class GameRepository {
+  private prisma: PrismaClient;
 
-export async function createGame(gameToInsert: CreateGameDto): Promise<string> {
-  try {
-    await prisma.gamelist.create({
-      data: gameToInsert,
-    });
-    console.log("Registro inserido com sucesso!");
-    return gameToInsert.name;
-  } catch (error) {
-    console.error("Erro ao inserir no banco:", error);
-  } finally {
-    await prisma.$disconnect();
+  constructor() {
+    this.prisma = new PrismaClient();
   }
-}
 
-export async function getGames(): Promise<Game[]> {
-  try {
-    const games = await prisma.gamelist.findMany();
-    return games;
-  } catch (error) {
-    console.error("Erro ao buscar no banco:", error);
-  } finally {
-    await prisma.$disconnect();
+  async createGame(gameData: CreateGameDto): Promise<string> {
+    try {
+      await this.prisma.gamelist.create({
+        data: gameData,
+      });
+      return gameData.name;
+    } catch (error) {
+      console.error("Erro ao inserir novo registro:", error);
+      throw new Error("Erro ao inserir novo registro");
+    }
+  }
+
+  async getGames(): Promise<Game[]> {
+    try {
+      const gamelist = await this.prisma.gamelist.findMany();
+      return gamelist;
+    } catch (error) {
+      console.error("Erro ao buscar registro:", error);
+      throw new Error("Erro ao buscar registro");
+    }
   }
 }
