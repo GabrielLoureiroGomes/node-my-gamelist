@@ -3,6 +3,7 @@ import { GameController } from "./game.controller";
 import { GameService } from "../service/game.service";
 import { CreateGameDto } from "src/dto/createGame";
 import { GameRepository } from "../repository/game.repository";
+import { Game } from "src/domain/game";
 
 jest.mock("../repository/game.repository");
 

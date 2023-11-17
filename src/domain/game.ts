@@ -1,4 +1,4 @@
-class Game {
+export class Game {
   id: number;
   name: string;
   producer: string;
