@@ -1,6 +1,14 @@
 name: Dev Workflow - Build and Quality Analysis
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+    tags-ignore:
+      - "*"
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
