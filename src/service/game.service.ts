@@ -5,11 +5,7 @@ import { Game } from "src/domain/game";
 
 @Injectable()
 export class GameService {
-  private gameRepository: GameRepository;
-
-  constructor() {
-    this.gameRepository = new GameRepository();
-  }
+  constructor(private readonly gameRepository: GameRepository) {}
 
   async createGame(gameData: CreateGameDto): Promise<string> {
     try {

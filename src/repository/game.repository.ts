@@ -5,11 +5,7 @@ import { CreateGameDto } from "src/dto/createGame";
 
 @Injectable()
 export class GameRepository {
-  private prisma: PrismaClient;
-
-  constructor() {
-    this.prisma = new PrismaClient();
-  }
+  constructor(private readonly prisma: PrismaClient) {}
 
   async createGame(gameData: CreateGameDto): Promise<string> {
     try {
