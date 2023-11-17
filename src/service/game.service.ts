@@ -1,11 +1,24 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
+import { CreateGameDto } from "src/dto/createGame";
+import { createGame, getGames } from "src/repository/game.repository";
 
 @Injectable()
 export class GameService {
-  private games = [];
+  async createGame(gameData: CreateGameDto): Promise<string> {
+    try {
+      return createGame(gameData);
+    } catch (error) {
+      console.error("Erro ao inserir novo registro:", error);
+      throw new Error("Erro ao inserir novo registro");
+    }
+  }
 
-  createGame(gameData: any): string {
-    this.games.push(gameData);
-    return `New game inserted with success: ${JSON.stringify(gameData.name)}`;
+  async getGames(): Promise<Game[]> {
+    try {
+      return getGames();
+    } catch (error) {
+      console.error("Erro ao buscar registro:", error);
+      throw new Error("Erro ao buscar registro");
+    }
   }
 }

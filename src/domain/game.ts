@@ -1,5 +1,5 @@
 class Game {
-  id: string;
+  id: number;
   name: string;
   producer: string;
   platform: string;
